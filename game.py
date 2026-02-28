@@ -1,5 +1,6 @@
-from tkinter import  *
-import random 
+from tkinter import *
+from PIL import Image, ImageTk
+import random
 
 window = Tk()
 window.geometry("880x600")
@@ -8,7 +9,7 @@ window.title("ROCK-PAPER-SCISSORS")
 frame = Frame(window)
 frame.place(relx=0.01, rely=0.01, relwidth=0.98, relheight=0.98)
 
-name = Label(frame, text= "Rock Paper Scissors - Player vs Computer", font="100")
+name = Label(frame, text="Rock Paper Scissors - Player vs Computer", font=("Arial", 20, "bold"))
 name.place(x=250, y=20)
 
 label1 = Label(frame, text= "Player", font="normal 15")
@@ -17,13 +18,14 @@ label2= Label(frame, text= "VS", font="normal 15")
 
 label3 = Label(frame, text= "Computer", font="normal 15")
 
-label1.place(x=80, y=50, width=100)
-label2.place(x=350, y=50, width=100)
-label3.place(x=600, y=50, width=100)
+def load_image(path):
+    img = Image.open(path)
+    img = img.resize((180, 180))   
+    return ImageTk.PhotoImage(img)
 
-rock_png = PhotoImage(file="rock.png")
-paper_png = PhotoImage(file="paper.png")
-scissors_png = PhotoImage(file="scissors.png")
+rock_png = load_image("rock.png")
+paper_png = load_image("paper.png")
+scissors_png = load_image("scissors.png")
 
 user_image = Label(frame, image=rock_png)
 user_image.place(x=80, y=100)
@@ -31,7 +33,7 @@ user_image.place(x=80, y=100)
 comp_image = Label(frame, image=rock_png)
 comp_image.place(x=600, y=100)
 
-label4 = Label(frame, text="", font="normal 20", width=15, borderwidth=2, relief="solid")
+label4 = Label(frame, text="", font=("Arial", 18, "bold"), width=18, borderwidth=3, relief="solid")
 label4.place(x=275, y=250,)
 
 def Rock():
@@ -50,11 +52,11 @@ def Rock():
        comp_image.config(image=scissors_png)
 
 b1 = Button(frame, text="Rock", font="10", width=17, command=Rock)
-b1.place(x=100, y=300)
+b1.place(x=150, y=380)
 
 def Paper():
     user = "Paper"
-    computer = random.choice(["Rock", "Paper", "Scissors"])
+    computer = random.choice(["Rock", "Paper", "Scissors"])    
     user_image.config(image=paper_png)
 
     if user == computer:
@@ -68,7 +70,7 @@ def Paper():
        comp_image.config(image=rock_png)
 
 b2 = Button(frame, text="Paper", font="10", width=17, command=Paper,)
-b2.place(x=300, y=300)
+b2.place(x=350, y=380)
 
 def Scissors():
     user = "Scissors"
@@ -86,6 +88,6 @@ def Scissors():
        comp_image.config(image=paper_png)
 
 b3 = Button(frame, text="Scissors", font="10", width=17, command=Scissors )
-b3.place(x=500, y=300 )
+b3.place(x=550, y=380 )
 
 window.mainloop()
